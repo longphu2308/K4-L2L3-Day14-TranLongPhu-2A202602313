@@ -2,34 +2,34 @@ PHIẾU CÁ NHÂN — DAY 14
 Điền file này, chạy QC vào submission/qc-j01 và submission/qc-practice, commit rồi nộp link repo.
 Không dán ảnh, toạ độ điểm hay nội dung file export vào đây.
 
-Họ tên / mã học viên:
-Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01:
-Phiên bản CVAT / overlay đã bật (có/không):
+Họ tên / mã học viên: Trần Long Phú / 2A202602313
+Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01: J01-d / 17 (export ID: 0)
+Phiên bản CVAT / overlay đã bật (có/không): 2.74.1 / có
 
 J01 — TRACK LÕI
-Frame fit và lý do:
-L / W / H (m):
-Keyframe quan trọng và lý do:
-Đã bấm F qua đủ frame 0–65 (có/không):
-Đoạn thưa / che khuất / dễ nhầm identity:
+Frame fit và lý do: Frame 65. Đây là frame neo gần xe ego nhất (khoảng cách ~16.6 m), point cloud dày đặc rõ cả ba mặt, cho phép căn chỉnh chính xác chiều dài, rộng, cao và góc xoay trên cả 3 view Top, Side, Front để làm kích thước tham chiếu chuẩn.
+L / W / H (m): 4.39 / 1.80 / 1.77
+Keyframe quan trọng và lý do: Frame 39 (mốc xuất hiện của xe ở khoảng cách ~56m, bắt đầu track); Frame 49 (xe thoát dần vùng che khuất, bỏ occluded); Frame 52 (xe bị che một phần bởi xe phía trước, bật occluded); Frame 58 (xe đi vào vùng trống, điểm dày rõ nét); Frame 65 (mốc gần nhất, fit chuẩn đa view).
+Đã bấm F qua đủ frame 0–65 (có/không): có
+Đoạn thưa / che khuất / dễ nhầm identity: Frame 39–48: xe ở xa (45–56m), điểm thưa và bị che bởi xe phía trước; Frame 52–57: xe bị che khuất một phần thân. Nhờ giữ nguyên kích thước vật rắn tham chiếu và chuyển động tịnh tiến đều trong làn nên không bị nhầm lẫn identity.
 
 SELF-QC (từ qc_tracks.csv / qc_flags.csv)
-Lần QC đầu — cờ của track J01 (loại, frame):
-Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do:
-Đã sửa gì sau QC đầu; QC cuối còn cờ nào:
-Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao:
+Lần QC đầu — cờ của track J01 (loại, frame): fragmentation_suspect (frame 39), no_interpolation (frame 39).
+Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do: Giữ vì hợp lệ cho cả hai cờ. fragmentation_suspect tại frame 39 là do xe di chuyển từ xa vào tầm nhìn của cảm biến ở giữa sequence (tình huống Enter hợp lệ). no_interpolation là do vị trí tâm được tinh chỉnh tỉ mỉ từng frame để bám sát chuyển động thực của xe mà vẫn giữ cố định tuyệt đối kích thước L/W/H (drift = 0.0).
+Đã sửa gì sau QC đầu; QC cuối còn cờ nào: Kiểm tra và xác nhận kích thước vật rắn không bị co giãn (L_drift = 0.0, W_drift = 0.0, H_drift = 0.0); góc quay mượt mà (yaw_step_max = 4.58°); bước dịch chuyển tâm hợp lý (pos_step_max = 1.75m). QC cuối còn 2 cờ tại frame 39 đã được giải trình hợp lệ.
+Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao: Bạn cùng cặp nhận xét track mượt, bám đúng cụm điểm, kích thước giữ cố định không đổi và đánh dấu occluded tại các frame bị che khuất rất chuẩn xác. Tôi đồng ý vì đã đối chiếu kỹ lưỡng cả trên point cloud 3D và camera trước image_1.
 
 CAMERA–LIDAR (overlay trên image_1)
-Ca bình thường (frame / quan sát):
-Ca khó (frame / quan sát 2D / quan sát 3D):
-Giả thuyết nguyên nhân (annotation / FOV / occlusion / sparse / nghi calibration / chưa đủ evidence):
-Hành động (sửa / giữ / báo Lab Coach) và lý do:
+Ca bình thường (frame / quan sát): Frame 65: Khung overlay xanh bao khít chính xác thân xe trên image_1, mép nóc và cản sau trùng khớp; trên point cloud 3D cụm điểm dày đặc ôm sát hộp.
+Ca khó (frame / quan sát 2D / quan sát 3D): Frame 42: Trên image_1 xe ở xa (~53m), hình ảnh nhỏ và nửa thân xe bị che khuất; trên 3D point cloud chỉ có vài điểm phản xạ thưa ở nóc xe.
+Giả thuyết nguyên nhân (annotation / FOV / occlusion / sparse / nghi calibration / chưa đủ evidence): occlusion và sparse (ở cự ly xa chùm tia LiDAR bị thưa kết hợp vật cản phía trước che khuất một phần góc nhìn).
+Hành động (sửa / giữ / báo Lab Coach) và lý do: Giữ cuboid với kích thước tham chiếu đã xác lập tại frame 65 (4.39 x 1.80 x 1.77 m), không co nhỏ box theo cụm điểm thưa; đánh dấu occluded=True để đảm bảo tính toàn vẹn của vật rắn theo thời gian.
 
 CASE NGẮN (task practice)
-Case → track ID (ví dụ B01 → 3):
-Case đã xong:
-Case đang dở / chỗ kẹt:
-fragmentation_suspect ở đầu/cuối case đã kiểm là do cách cắt case (có/không):
+Case → track ID (ví dụ B01 → 3): B01 → track 14, 15, 16
+Case đã xong: B01 (frame 16–21)
+Case đang dở / chỗ kẹt: Không có (hoàn thành tốt khởi động B01 và tập trung tối đa cho track lõi J01 theo đúng hướng dẫn bài lab)
+fragmentation_suspect ở đầu/cuối case đã kiểm là do cách cắt case (có/không): có
 
 THỜI GIAN
-J01 / case ngắn / QC và fusion:
+J01 / case ngắn / QC và fusion: 75 phút / 25 phút / 30 phút
