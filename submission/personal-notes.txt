@@ -3,10 +3,11 @@ PHIẾU CÁ NHÂN — DAY 14
 Không dán ảnh, toạ độ điểm hay nội dung file export vào đây.
 
 Họ tên / mã học viên: Trần Long Phú / 2A202602313
-Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01: J01-d / 17 (export ID: 0)
+Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01: J01-d / 17 (export ID: 0) — Chỉ thực hiện gán nhãn 1 phương tiện duy nhất (xe J01-d được chỉ định theo số cuối mã học viên, không gán nhãn toàn cảnh toàn bộ phương tiện theo đúng yêu cầu bài lab).
 Phiên bản CVAT / overlay đã bật (có/không): 2.74.1 / có
 
 J01 — TRACK LÕI
+Phạm vi gán nhãn: Chỉ gán nhãn 1 phương tiện duy nhất (chiếc xe J01-d nằm trong vùng ROI [1469, 833, 1826, 1071] tại frame neo 65, theo dõi xuyên suốt từ frame 39 đến 65); không gán nhãn toàn cảnh/toàn bộ phương tiện khác trong sequence.
 Frame fit và lý do: Frame 65. Đây là frame neo gần xe ego nhất (khoảng cách ~16.6 m), point cloud dày đặc rõ cả ba mặt, cho phép căn chỉnh chính xác chiều dài, rộng, cao và góc xoay trên cả 3 view Top, Side, Front để làm kích thước tham chiếu chuẩn.
 L / W / H (m): 4.39 / 1.80 / 1.77
 Keyframe quan trọng và lý do: Frame 39 (mốc xuất hiện của xe ở khoảng cách ~56m, bắt đầu track); Frame 49 (xe thoát dần vùng che khuất, bỏ occluded); Frame 52 (xe bị che một phần bởi xe phía trước, bật occluded); Frame 58 (xe đi vào vùng trống, điểm dày rõ nét); Frame 65 (mốc gần nhất, fit chuẩn đa view).
